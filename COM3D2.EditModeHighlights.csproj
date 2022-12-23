@@ -1,0 +1,32 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net35</TargetFramework>
+    <LangVersion>10</LangVersion>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Product>EditModeHighlights</Product>
+    <Version>1.0.0</Version>
+    <Authors>Perdition</Authors>
+    <PackageProjectUrl>https://github.com/Perdition-117/COM3D2.EditModeHighlights</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/Perdition-117/COM3D2.EditModeHighlights.git</RepositoryUrl>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)'=='Debug'">
+    <DebugType>full</DebugType>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="BepInEx.BaseLib" Version="5.4.19" />
+    <PackageReference Include="BepInEx.PluginInfoProps" Version="1.1.0" />
+    <PackageReference Include="COM3D2.GameLibs" Version="2.16.0-r.0" />
+    <PackageReference Include="HarmonyX" Version="2.10.0" />
+    <PackageReference Include="UnityEngine" Version="5.6.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="COM3D2.EditModeItemManager">
+      <HintPath>Libs\COM3D2.EditModeItemManager.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>
