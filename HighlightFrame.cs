@@ -1,4 +1,4 @@
-﻿using System.Linq;
+using System.Linq;
 
 namespace COM3D2.EditModeHighlights;
 
@@ -55,17 +55,18 @@ internal class HighlightFrame : IOverlay {
 				yield return (HighlightFrame)container.HighlightOverlay;
 			}
 		}
+		foreach (var button in SceneEdit.Instance.m_listBtnGroupMember) {
+			if (OverlayContainer.TryGetContainer(button.goItem, out var container)) {
+				yield return (HighlightFrame)container.HighlightOverlay;
+			}
+		}
 		foreach (var button in SceneEdit.Instance.m_listBtnPartsType) {
-			if (button != null && OverlayContainer.TryGetContainer(button, out var container)) {
-				var highlightFrame = (HighlightFrame)container.HighlightOverlay;
-				if (highlightFrame is not null)
+			if (button != null && OverlayContainer.TryGetContainer(button, out var container) && container.HighlightOverlay is HighlightFrame highlightFrame) {
 					yield return highlightFrame;
 			}
 		}
 		foreach (var button in SceneEdit.Instance.m_listBtnCate) {
-			if (OverlayContainer.TryGetContainer(button, out var container)) {
-				var highlightFrame = (HighlightFrame)container.HighlightOverlay;
-				if (highlightFrame is not null)
+			if (OverlayContainer.TryGetContainer(button, out var container) && container.HighlightOverlay is HighlightFrame highlightFrame) {
 					yield return highlightFrame;
 			}
 		}
