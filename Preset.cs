@@ -66,7 +66,7 @@ partial class EditModeHighlights {
 	}
 
 	private static void PresetButton_OnHoverOver() {
-		if (MarkSeenPreference == MarkSeenPreference.Hover) {
+		if (MarkSeenPreference == MarkSeenPreference.MouseHover) {
 			UpdatePreset(UIEventTrigger.current.name);
 		}
 	}

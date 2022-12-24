@@ -5,7 +5,7 @@ namespace COM3D2.EditModeHighlights;
 
 enum MarkSeenPreference {
 	CategoryLoad,
-	Hover,
+	MouseHover,
 	Click,
 }
 
@@ -160,7 +160,7 @@ public partial class EditModeHighlights : BaseUnityPlugin {
 	[HarmonyPostfix]
 	private static void HoverOverCallback(SceneEdit __instance) {
 		var buttonEdit = UIEventTrigger.current.GetComponentInChildren<ButtonEdit>();
-		if (MarkSeenPreference == MarkSeenPreference.Hover && buttonEdit.m_MenuItem != null && !__instance.m_maid.boAllProcPropBUSY) {
+		if (MarkSeenPreference == MarkSeenPreference.MouseHover && buttonEdit.m_MenuItem != null && !__instance.m_maid.boAllProcPropBUSY) {
 			UpdateItem(__instance, buttonEdit);
 		}
 	}
