@@ -35,7 +35,7 @@ jobs:
       run: |
         $archiveName = "$env:OUTPUT_NAME-$env:GITHUB_REF_NAME.zip"
         Add-Content -Value "ARCHIVE_NAME=$archiveName" -Path $env:GITHUB_ENV
-        Compress-Archive -Path bin\Release\net35\$env:OUTPUT_NAME.dll,COM3D2.EditModeItemManager.dll -DestinationPath $archiveName -CompressionLevel NoCompression
+        Compress-Archive -Path bin\Release\net35\$env:OUTPUT_NAME.dll,bin\Release\net35\COM3D2.EditModeItemManager.dll -DestinationPath $archiveName -CompressionLevel NoCompression
 
     - name: Release
       uses: softprops/action-gh-release@v1
