@@ -1,4 +1,4 @@
-using System.Linq;
+﻿using System.Linq;
 
 namespace COM3D2.EditModeHighlights;
 
@@ -18,6 +18,8 @@ internal class HighlightFrame : IOverlay {
 		var gameObject = NGUITools.AddChild(container.Parent);
 		gameObject.name = "Highlight";
 
+		Container = container;
+
 		_sprite = gameObject.AddComponent<UISprite>();
 		_sprite.atlas = _atlas;
 		_sprite.spriteName = "cm3d2_common_plate_white";
@@ -34,6 +36,8 @@ internal class HighlightFrame : IOverlay {
 		_tweener.method = UITweener.Method.EaseIn;
 		_tweener.PlayForward();
 	}
+
+	public OverlayContainer Container { get; }
 
 	public bool Active {
 		get => _sprite.atlas != null;
@@ -62,12 +66,12 @@ internal class HighlightFrame : IOverlay {
 		}
 		foreach (var button in SceneEdit.Instance.m_listBtnPartsType) {
 			if (button != null && OverlayContainer.TryGetContainer(button, out var container) && container.HighlightOverlay is HighlightFrame highlightFrame) {
-					yield return highlightFrame;
+				yield return highlightFrame;
 			}
 		}
 		foreach (var button in SceneEdit.Instance.m_listBtnCate) {
 			if (OverlayContainer.TryGetContainer(button, out var container) && container.HighlightOverlay is HighlightFrame highlightFrame) {
-					yield return highlightFrame;
+				yield return highlightFrame;
 			}
 		}
 	}

@@ -1,6 +1,5 @@
 ﻿using BepInEx;
 using BepInEx.Configuration;
-using HarmonyLib;
 
 namespace COM3D2.EditModeHighlights;
 
@@ -36,6 +35,21 @@ public partial class EditModeHighlights : BaseUnityPlugin {
 
 		_configHighlightFrameColor.SettingChanged += (o, e) => HighlightFrame.SetColors(HighlightFrameColor);
 
+		_configHighlightItems.SettingChanged += (o, e) => {
+			foreach (var frame in HighlightFrame.GetFrames()) {
+				var buttonEdit = ItemManager.GetButtonEdit(frame.Container.Parent);
+				if (buttonEdit.m_MenuItem != null) {
+					SetHighlightOverlay(buttonEdit, HighlightItems && (IsNewItem(buttonEdit.m_MenuItem) || (SceneEdit.Instance.m_bUseGroup && HasNewItems(buttonEdit.m_MenuItem))));
+				} else if (buttonEdit.m_PartsType != null) {
+					SetHighlightOverlay(buttonEdit, HighlightItems && HasNewItems(buttonEdit.m_PartsType));
+				} else if (buttonEdit.m_Category != null && buttonEdit.m_Category.m_listPartsType.Count > 0) {
+					SetHighlightOverlay(buttonEdit, HighlightItems && HasNewItems(buttonEdit.m_Category));
+				}
+			}
+		};
+
+		_configHighlightPresets.SettingChanged += (o, e) => UpdatePresetCategoryHighlight();
+
 		ItemManager.SetUnseenItems = HighlightItems;
 		ItemManager.SetUnseenPresets = HighlightPresets;
 
@@ -63,12 +77,16 @@ public partial class EditModeHighlights : BaseUnityPlugin {
 		return ItemManager.TryGetItem(fileName, out var item) && item.IsNew;
 	}
 
+	public static bool IsNewItem(SceneEdit.SMenuItem item) {
+		return IsNewItem(item.m_strMenuFileName);
+	}
+
 	public static bool HasNewItems(SceneEdit.SMenuItem item) {
-		return item.m_bGroupLeader && item.m_listMember.Exists(item => IsNewItem(item.m_strMenuFileName));
+		return item.m_bGroupLeader && item.m_listMember.Exists(item => IsNewItem(item));
 	}
 
 	public static bool HasNewItems(SceneEdit.SPartsType partType) {
-		return partType.m_listMenu.Exists(item => IsNewItem(item.m_strMenuFileName));
+		return partType.m_listMenu.Exists(item => IsNewItem(item));
 	}
 
 	public static bool HasNewItems(SceneEdit.SCategory category) {
@@ -148,11 +166,11 @@ public partial class EditModeHighlights : BaseUnityPlugin {
 	}
 
 	private static void OnMenuItemButtonCreated(object sender, MenuItemEventArgs e) {
-		AddHighlightOverlay(e.Container, HighlightItems && IsNewItem(e.MenuItem.m_strMenuFileName) || (SceneEdit.Instance.m_bUseGroup && HasNewItems(e.MenuItem)));
+		AddHighlightOverlay(e.Container, HighlightItems && (IsNewItem(e.MenuItem) || (SceneEdit.Instance.m_bUseGroup && HasNewItems(e.MenuItem))));
 	}
 
 	private static void OnGroupSetButtonCreated(object sender, GroupSetButtonCreatedEventArgs e) {
-		AddHighlightOverlay(e.Container, HighlightItems && IsNewItem(e.MenuItem.m_strMenuFileName) && !(e.IsSelected && MarkSeenPreference == MarkSeenPreference.Click));
+		AddHighlightOverlay(e.Container, HighlightItems && IsNewItem(e.MenuItem) && !(e.IsSelected && MarkSeenPreference == MarkSeenPreference.Click));
 	}
 
 	private static void OnPartTypeButtonCreated(object sender, PartTypeButtonCreatedEventArgs e) {
