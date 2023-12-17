@@ -1,11 +1,11 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net35</TargetFramework>
     <LangVersion>10</LangVersion>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <Product>EditModeHighlights</Product>
-    <Version>1.0.0</Version>
+    <Version>1.0.1</Version>
     <Authors>Perdition</Authors>
     <PackageProjectUrl>https://github.com/Perdition-117/COM3D2.EditModeHighlights</PackageProjectUrl>
     <RepositoryUrl>https://github.com/Perdition-117/COM3D2.EditModeHighlights.git</RepositoryUrl>

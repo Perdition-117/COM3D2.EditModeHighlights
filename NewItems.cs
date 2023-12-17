@@ -1,4 +1,4 @@
-﻿using BepInEx;
+using BepInEx;
 using BepInEx.Configuration;
 
 namespace COM3D2.EditModeHighlights;
@@ -10,7 +10,7 @@ enum MarkSeenPreference {
 }
 
 [BepInPlugin("net.perdition.com3d2.editmodehighlights", PluginInfo.PLUGIN_NAME, PluginInfo.PLUGIN_VERSION)]
-[BepInDependency("net.perdition.com3d2.editmodeitemmanager")]
+[BepInDependency("net.perdition.com3d2.editmodeitemmanager", "1.0.2")]
 public partial class EditModeHighlights : BaseUnityPlugin {
 	private static ConfigEntry<MarkSeenPreference> _configMarkSeenPreference;
 	private static ConfigEntry<bool> _configMarkColorsSeen;
